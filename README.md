@@ -1,6 +1,5 @@
 # RPT 5000
 ![License](https://img.shields.io/badge/License-MIT-green)<br>
-![rpt-5000](assets/intro.png)
 
 ---
 
@@ -12,8 +11,9 @@ Ben Stearns - [@bstearns07](https://github.com/bstearns07)
 ## 📑 Table of Contents
 - [📌 Summary](#-summary)
 - [✨ Features](#-features)
-- [🧰 Tech Stack](#-tech-stack)
+- [🧾Report Breakdown](#-report-breakdown)
 - [⚙️ How It Works](#-how-it-works-)
+- [🧰 Tech Stack](#-tech-stack)
 - [🧠 Topics Covered](#-topics-covered)
    - [Cobol Fundamentals](#-cobol-fundamentals)
    - [File & Data Handling](#-file-&-data-handling)
@@ -31,7 +31,7 @@ The **Report 5000** application demonstrates how to generate a clean sales repor
 repetitive text creating noise so the final report comes out super clean. Also, sales representative totals are not calculated for your viewing
 pleasure. Take a look!
 
-For full program details, refer to [Program Requirements](./assets/ProgramInstructions.pdf) 
+For full program details, refer to [Program Requirements](./assets/Program_Instructions.pdf) 
 
 ---
 
@@ -44,6 +44,35 @@ For full program details, refer to [Program Requirements](./assets/ProgramInstru
 - (new) More standadized COBOL coding syntax
 ---
 
+## 🧾 Report Breakdown
+
+![rpt-5000](assets/intro.png)
+
+### 📊 Report Fields Overview
+| Field | Description |
+|------|-------------|
+| 🏢 Branch | The branch that handled the sale |
+| 👤 Sales Rep | The representative responsible for the sale |
+| 🆔 Customer Number | Unique ID assigned to the customer |
+| 📛 Customer Name | Name of the customer |
+| 💰 Sales This YTD | Total sales for the current year-to-date |
+| 📉 Sales Last YTD | Total sales for the previous year-to-date |
+
+---
+
+### 📈 Calculated Metrics
+| Metric | Description | Formula |
+|-------|------------|---------|
+| 💵 Change Amount | Difference between current and previous YTD sales | `Sales This YTD - Sales Last YTD` |
+| 📊 Change Percent | Percentage change between current and previous YTD sales | `(Change Amount * 100) / Sales Last YTD` |
+
+---
+
+### ⚠️ Special Case Handling
+| Condition | Behavior |
+|----------|----------|
+| 🚫 Sales Last YTD = 0 | Change Percent is set to `999.99` to avoid division by zero |
+---
 ## 🧰 Tech Stack
 
 - Enterprise COBOL 6.4 (Semantic Markup)
@@ -115,6 +144,8 @@ understand.
 ---
 
 ## 🖼 Screenshots
+![rpt-5000](assets/intro.png)
+
 
 ### 🖼 Final Report
 
