@@ -2,7 +2,7 @@
       * Title..........: RPT5000 - Future Value Calculator
       * Programmer.....: Ben Stearns and Aidan Dunbar
       * Date...........: 3-24-26
-      * GitHub URL.....:
+      * GitHub URL.....: https://github.com/bstearns07/RPT5000.git
       * Program Desc...: Updates RPT3000 with sales rep totals and
       *                  non-repeating sales rep numbers
       * File Desc......: Defines the sole source code for application
@@ -106,7 +106,7 @@
       * Define all lines printed on the report
       *****************************************************************
        01  HEADING-LINE-1.
-           05  FILLER          PIC X(7)    VALUE "DATE:  ".
+           05  FILLER          PIC X(7)    VALUE "DATE: ".
            05  HL1-MONTH       PIC 9(2).
            05  FILLER          PIC X(1)    VALUE "/".
            05  HL1-DAY         PIC 9(2).
@@ -274,6 +274,10 @@
        300-PREPARE-SALES-LINES.
 
            PERFORM 310-READ-CUSTOMER-RECORD.
+
+      *    Updated logic using EVALUATE TRUE to control what lines to
+      *    to prepare for printing based on the current and previous
+      *    sales rep and branch numbers
            EVALUATE TRUE
                WHEN CUSTMAST-EOF
                    PERFORM 355-PRINT-SALESREP-LINE
@@ -297,7 +301,9 @@
                    PERFORM 320-PRINT-CUSTOMER-LINE
            END-EVALUATE.
 
-
+      *****************************************************************
+      * Procedure for reading the CUSTMAST data file until EOF
+      *****************************************************************
        310-READ-CUSTOMER-RECORD.
 
            READ CUSTMAST
@@ -311,44 +317,61 @@
       * print the heading lines based on the number of lines printed on
       *****************************************************************
        320-PRINT-CUSTOMER-LINE.
-
+       
            IF LINE-COUNT >= LINES-ON-PAGE
-               PERFORM 330-PRINT-HEADING-LINES.
-           IF FIRST-RECORD
-               MOVE CM-BRANCH-NUMBER TO CL-BRANCH-NUMBER
-               MOVE CM-SALESREP-NUMBER TO CL-SALESREP-NUMBER
-           ELSE
-               IF CM-BRANCH-NUMBER > OLD-BRANCH-NUMBER
-                   MOVE CM-BRANCH-NUMBER TO CL-BRANCH-NUMBER
+              PERFORM 330-PRINT-HEADING-LINES
+           END-IF
+             
+           EVALUATE TRUE
+      *        When the first record of CUSTMAST is read, print both
+      *        the branch and sales rep numbers     
+               WHEN FIRST-RECORD
+                   MOVE CM-BRANCH-NUMBER   TO CL-BRANCH-NUMBER
                    MOVE CM-SALESREP-NUMBER TO CL-SALESREP-NUMBER
-               ELSE
-                   MOVE SPACE TO CL-BRANCH-NUMBER
+      *        When the branch number changes, print both numbers     
+               WHEN CM-BRANCH-NUMBER > OLD-BRANCH-NUMBER
+                   MOVE CM-BRANCH-NUMBER   TO CL-BRANCH-NUMBER
+                   MOVE CM-SALESREP-NUMBER TO CL-SALESREP-NUMBER
+      *        Otherwise print a blank branch number and determine if
+      *        the sales rep number should be printed based on if it is
+      *        greater than the previous sales rep number     
+               WHEN OTHER
+                   MOVE SPACES TO CL-BRANCH-NUMBER
+           
                    IF CM-SALESREP-NUMBER > OLD-SALESREP-NUMBER
                        MOVE CM-SALESREP-NUMBER TO CL-SALESREP-NUMBER
                    ELSE
-                       MOVE SPACE TO CL-SALESREP-NUMBER.
-           MOVE CM-CUSTOMER-NUMBER  TO CL-CUSTOMER-NUMBER.
-           MOVE CM-CUSTOMER-NAME    TO CL-CUSTOMER-NAME.
-           MOVE CM-SALES-THIS-YTD   TO CL-SALES-THIS-YTD.
-           MOVE CM-SALES-LAST-YTD   TO CL-SALES-LAST-YTD.
+                       MOVE SPACES TO CL-SALESREP-NUMBER
+                   END-IF
+           END-EVALUATE
+      *    Move resultiing data to the customer line
+           MOVE CM-CUSTOMER-NUMBER TO CL-CUSTOMER-NUMBER
+           MOVE CM-CUSTOMER-NAME   TO CL-CUSTOMER-NAME
+           MOVE CM-SALES-THIS-YTD  TO CL-SALES-THIS-YTD
+           MOVE CM-SALES-LAST-YTD  TO CL-SALES-LAST-YTD
+      *    Compute change amount and percent change and move to line  
            COMPUTE CHANGE-AMOUNT =
-                CM-SALES-THIS-YTD - CM-SALES-LAST-YTD.
-           MOVE CHANGE-AMOUNT TO CL-CHANGE-AMOUNT.
-           *> default for % change is 999.9 if last YTD is 0
+               CM-SALES-THIS-YTD - CM-SALES-LAST-YTD
+           MOVE CHANGE-AMOUNT TO CL-CHANGE-AMOUNT
+           
            IF CM-SALES-LAST-YTD = ZERO
-                MOVE 999.99 TO CL-CHANGE-PERCENT
+               MOVE 999.99 TO CL-CHANGE-PERCENT
            ELSE
-                COMPUTE CL-CHANGE-PERCENT ROUNDED =
-                    CHANGE-AMOUNT * 100 / CM-SALES-LAST-YTD
-                    ON SIZE ERROR
-                        MOVE 999.9 TO CL-CHANGE-PERCENT.
-           ADD CM-SALES-THIS-YTD TO SALESREP-TOTAL-THIS-YTD.
-           ADD CM-SALES-LAST-YTD TO SALESREP-TOTAL-LAST-YTD.
-           MOVE CUSTOMER-LINE TO PRINT-AREA.
-           WRITE PRINT-AREA.
-           ADD 1 TO LINE-COUNT.
-           ADD CM-SALES-THIS-YTD TO GRAND-TOTAL-THIS-YTD.
-           ADD CM-SALES-LAST-YTD TO GRAND-TOTAL-LAST-YTD.
+               COMPUTE CL-CHANGE-PERCENT ROUNDED =
+                   CHANGE-AMOUNT * 100 / CM-SALES-LAST-YTD
+                   ON SIZE ERROR
+                       MOVE 999.99 TO CL-CHANGE-PERCENT
+           END-IF
+           
+           ADD CM-SALES-THIS-YTD TO SALESREP-TOTAL-THIS-YTD
+           ADD CM-SALES-LAST-YTD TO SALESREP-TOTAL-LAST-YTD
+           ADD CM-SALES-THIS-YTD TO GRAND-TOTAL-THIS-YTD
+           ADD CM-SALES-LAST-YTD TO GRAND-TOTAL-LAST-YTD
+           
+           MOVE CUSTOMER-LINE TO PRINT-AREA
+           WRITE PRINT-AREA
+           
+           ADD 1 TO LINE-COUNT
            MOVE 1 TO SPACE-CONTROL.
 
       *****************************************************************
@@ -375,11 +398,18 @@
            MOVE ZERO TO LINE-COUNT.
            MOVE 2 TO SPACE-CONTROL.
 
+      *****************************************************************
+      * Procedure for writing a line to the report
+      *****************************************************************
        350-WRITE-REPORT-LINE.
 
            WRITE PRINT-AREA.
            ADD SPACE-CONTROL TO LINE-COUNT.
 
+      *****************************************************************
+      * Procedure for printing the sales rep totals line
+      * Calculated the same as the branch totals line
+      *****************************************************************
        355-PRINT-SALESREP-LINE.
 
            MOVE SALESREP-TOTAL-THIS-YTD TO STL-SALES-THIS-YTD.
@@ -403,6 +433,12 @@
            MOVE ZERO TO SALESREP-TOTAL-THIS-YTD.
            MOVE ZERO TO SALESREP-TOTAL-LAST-YTD.
 
+      *****************************************************************
+      * Procedure for printing the branch totals line
+      * Computes change amount and percentage of change in sales for a
+      * branch compared to the same period last year. Also adds the
+      * branch totals to the grand totals and resets the branch totals
+      *****************************************************************  
        360-PRINT-BRANCH-LINE.
 
            MOVE BRANCH-TOTAL-THIS-YTD TO BTL-SALES-THIS-YTD.
