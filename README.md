@@ -12,26 +12,20 @@ Ben Stearns - [@bstearns07](https://github.com/bstearns07)
 - [📌 Summary](#-summary)
 - [✨ Features](#-features)
 - [🧾Report Breakdown](#-report-breakdown)
-- [⚙️ How It Works](#-how-it-works-)
+- [⚙️ How It Works](#how-it-works)
 - [🧰 Tech Stack](#-tech-stack)
 - [🧠 Topics Covered](#-topics-covered)
-   - [Cobol Fundamentals](#-cobol-fundamentals)
-   - [File & Data Handling](#-file-&-data-handling)
-   - [Reporting & Output](#-reporting-&-output)
-   - [JCL & Execution](#-jcl-&-execution)
 - [📘 What I Learned](#-what-i-learned)
 - [🖼 Screenshots](#-screenshots)
-   - [Final Report](#final-report)
 
 ---
 
 ## 📌 Summary
 
-The **Report 5000** application demonstrates how to generate a clean sales report in enterprise COBOL. In this newest version, you now have less
-repetitive text creating noise so the final report comes out super clean. Also, sales representative totals are not calculated for your viewing
-pleasure. Take a look!
+The **Report 5000** application demonstrates how to generate a clean sales report in enterprise COBOL. In this version of the program, you now have less repetitive text creating noise so the final report comes out super clean. Also, sales representative totals are now calculated for your viewing
+pleasure and code utilizes more standard COBOL features. Take a look!
 
-For full program details, refer to [Program Requirements](./assets/Program_Instructions.pdf) 
+For full program details, refer to [Program Requirements](./assets/Assignment_Instructions.pdf) 
 
 ---
 
@@ -90,7 +84,7 @@ For full program details, refer to [Program Requirements](./assets/Program_Instr
 - Visual Studio Code with ZOWE Explorer extension
 
 ---
-## ⚙️ How It Works 
+## How It Works
 
 1. Upload the repository's associated .cbl, .jcl and CUSTMAST data members to your mainframe environment
 2. Modify the JCL username on line 1 and the DSN names to match the filepaths for where the members are in your environment
@@ -135,7 +129,7 @@ For full program details, refer to [Program Requirements](./assets/Program_Instr
 
 ## 📘 What I Learned
 
-In this newest version of the report program, I learned a lot about taking existing code and refining it into more concise and easier-to-read code 
+In this version of the report program, I learned a lot about taking existing code and refining it into more concise and easier-to-read code 
 using some of the more intuitive standards COBOL offers. I really like how you could use PERFORM TRUE statements to simulate a swith (true)
 statement to help clean up excessive if-else logic that's hard to follow. I also learned how you can use conditional switches to simulate boolean 
 values to make coding logic more semantic and easier to interpret. This program easily leveled up my COBOL game to something that easier to 
@@ -144,10 +138,9 @@ understand.
 ---
 
 ## 🖼 Screenshots
-![rpt-5000](assets/intro.png)
-
 
 ### 🖼 Final Report
+![rpt-5000](assets/intro.png)
 
 
 ⬆️ [Back to Top](#-smartwatch-faq)
