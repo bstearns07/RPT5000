@@ -40,7 +40,7 @@ For full program details, refer to [Program Requirements](./assets/Assignment_In
 
 ## 🧾 Report Breakdown
 
-![rpt-5000](assets/intro.png)
+![rpt-5000](assets/report.png)
 
 ### 📊 Report Fields Overview
 | Field | Description |
@@ -140,7 +140,7 @@ understand.
 ## 🖼 Screenshots
 
 ### 🖼 Final Report
-![rpt-5000](assets/intro.png)
+![rpt-5000](assets/report.png)
 
 
 ⬆️ [Back to Top](#-smartwatch-faq)
