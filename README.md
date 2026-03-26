@@ -25,7 +25,7 @@ Ben Stearns - [@bstearns07](https://github.com/bstearns07)
 The **Report 5000** application demonstrates how to generate a clean sales report in enterprise COBOL. In this version of the program, you now have less repetitive text creating noise so the final report comes out super clean. Also, sales representative totals are now calculated for your viewing
 pleasure and code utilizes more standard COBOL features. Take a look!
 
-For full program details, refer to [Program Requirements](./assets/Assignment_Instructions.pdf) 
+For full program details, refer to [Program Requirements](./assets/Assignment_Instruction.pdf) 
 
 ---
 
