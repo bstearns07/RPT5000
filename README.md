@@ -1,6 +1,6 @@
-![License](https://img.shields.io/badge/License-MIT-green)<br>
-
 # RPT 5000
+
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
