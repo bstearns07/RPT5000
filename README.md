@@ -6,17 +6,22 @@
 ## 👤 Author
 Ben Stearns - [@bstearns07](https://github.com/bstearns07)
 
+📅 **Date:** 03/25/2026  
+
 ---
 
 ## 📑 Table of Contents
-- [📌 Summary](#-summary)
-- [✨ Features](#-features)
-- [🧾Report Breakdown](#-report-breakdown)
-- [⚙️ How It Works](#how-it-works)
-- [🧰 Tech Stack](#-tech-stack)
-- [🧠 Topics Covered](#-topics-covered)
-- [📘 What I Learned](#-what-i-learned)
-- [🖼 Screenshots](#-screenshots)
+## Table of Contents
+- 📌 [Summary](#-summary)
+- ⭐ [How It Works](#-how-it-works)
+- ✨ [Features](#-features)
+- 🧾 [Report Breakdown](#-report-breakdown)
+- 🧰 [Tech Stack](#-tech-stack)
+- 🔧 [Development Tools](#-development-tools)
+- 🧩 [Core Concepts](#-core-concepts)
+- 📝 [New Topics Covered](#-new-topics-covered)
+- 📘 [What I Learned](#-what-i-learned)
+- 🖼 [Screenshots](#-screenshots)
 
 ---
 
@@ -26,6 +31,14 @@ The **Report 5000** application demonstrates how to generate a clean sales repor
 pleasure and code utilizes more standard COBOL features. Take a look!
 
 For full program details, refer to [Program Requirements](./assets/Assignment_Instruction.pdf) 
+
+---
+
+## ⭐ How It Works
+
+1. Upload the repository's associated .cbl, .jcl and CUSTMAST data members to your mainframe environment
+2. Modify the JCL username on line 1 and the DSN names to match the filepaths for where the members are in your environment
+3. Sumbit the JCL job for processing
 
 ---
 
@@ -67,11 +80,25 @@ For full program details, refer to [Program Requirements](./assets/Assignment_In
 |----------|----------|
 | 🚫 Sales Last YTD = 0 | Change Percent is set to `999.99` to avoid division by zero |
 ---
-## 🧰 Tech Stack
 
-- Enterprise COBOL 6.4 (Semantic Markup)
-- IBM z/OS mainframe for development and compiling
-- ZOWE Explorer Studio Code extension
+## 🧰 Tech Stack
+![COBOL](https://img.shields.io/badge/COBOL-Enterprise%206.4-blue?style=flat-square)
+![JCL](https://img.shields.io/badge/JCL-Batch%20Processing-grey?style=flat-square)
+![z/OS](https://img.shields.io/badge/IBM-z%2FOS-0f62fe?style=flat-square)
+![VS Code](https://img.shields.io/badge/VS%20Code-Zowe%20Explorer-007ACC?style=flat-square)
+
+- **Enterprise COBOL 6.4** – Core business logic  
+- **JCL** – Batch execution (compile/link/run)  
+- **IBM z/OS** – Mainframe runtime environment  
+
+---
+
+## 🔧 Development Tools
+- 💻 Visual Studio Code + Zowe Explorer  
+- 🖥️ IBM z/OS Mainframe  
+- 📂 Partitioned Datasets (PDS)  
+
+---
 
 ### 🧩 Core Concepts
 - Report generation with standard alignments
@@ -79,20 +106,9 @@ For full program details, refer to [Program Requirements](./assets/Assignment_In
 - Proper setup of Environment and Data divisions for reading in data from other members
 - Arithmatic with modern COBOL coding syntax such as EVALUATE (TRUE), conditional switch, and WITH TEST AFTER statements
 
-### 🛠 Development Tools
-- Marist z/OS Mainframe environment
-- Visual Studio Code with ZOWE Explorer extension
-
----
-## How It Works
-
-1. Upload the repository's associated .cbl, .jcl and CUSTMAST data members to your mainframe environment
-2. Modify the JCL username on line 1 and the DSN names to match the filepaths for where the members are in your environment
-3. Sumbit the JCL job for processing
-
 ---
 
-## 🧠 Topics Covered
+## 📝 New Topics Covered
 
 ### 📊 COBOL Fundamentals
 | Skill | Description |
