@@ -1,5 +1,5 @@
       *****************************************************************
-      * Title..........: RPT5000 - Future Value Calculator
+      * Title..........: RPT5000 - Sales Report
       * Programmer.....: Ben Stearns and Aidan Dunbar
       * Date...........: 3-24-26
       * GitHub URL.....: https://github.com/bstearns07/RPT5000.git
